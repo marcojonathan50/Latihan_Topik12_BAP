@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2022 at 05:13 PM
+-- Generation Time: Nov 22, 2022 at 04:54 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -46,7 +46,7 @@ CREATE TABLE `attendances` (
 --
 
 INSERT INTO `attendances` (`id`, `created_at`, `updated_at`, `user_id`, `class`, `room_id`, `location_id`, `attandence_collect_at`, `attandence_return_at`, `marker_return_at`, `marker_collect_at`) VALUES
-(1, '2022-11-20 09:10:54', '2022-11-20 09:10:54', 1111, '20SI2', 301, 1, '2022-11-13 23:10:00', '2022-11-13 23:10:00', '2022-11-13 23:10:00', '2022-11-13 23:10:00');
+(1, '2022-11-20 09:10:54', '2022-11-22 07:55:52', 1111, '20SI2', 301, 1, '2022-11-13 23:10:00', '2022-11-13 23:10:00', '2022-11-13 23:10:00', '2022-11-13 23:10:00');
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2022_11_19_170906_create_missing_item_statuses_table', 2),
 (9, '2022_11_19_181019_create_attendances_table', 3),
 (10, '2022_11_19_181322_create_reservations_table', 3),
-(11, '2022_11_19_181420_create_schedules_table', 3);
+(11, '2022_11_19_181420_create_schedules_table', 3),
+(12, '2022_11_22_143952_create_replacements_table', 4);
 
 -- --------------------------------------------------------
 
@@ -170,6 +171,36 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `replacements`
+--
+
+CREATE TABLE `replacements` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `nama_lengkap` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mata_kuliah` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kelas` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `prodi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `semester` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tahun_akademik` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `jadwal_kuliah` datetime DEFAULT NULL,
+  `tanggal_replacement` date DEFAULT NULL,
+  `jam_replacement` time DEFAULT NULL,
+  `alasan_replacement` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `replacements`
+--
+
+INSERT INTO `replacements` (`id`, `created_at`, `updated_at`, `nama_lengkap`, `mata_kuliah`, `kelas`, `prodi`, `semester`, `tahun_akademik`, `tanggal`, `jadwal_kuliah`, `tanggal_replacement`, `jam_replacement`, `alasan_replacement`) VALUES
+(1, '2022-11-22 07:58:45', '2022-11-22 08:27:59', 'Budi', 'Audit dan Kontrol Sistem Informasi', '20SI2', 'Sistem Informasi', 'Ganjil', '2022/2023', '2022-11-22', '2022-11-02 21:57:00', '2022-11-30', '18:00:00', 'Sakit');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reservations`
 --
 
@@ -191,7 +222,7 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`id`, `created_at`, `updated_at`, `user_id`, `reservation_code`, `room_id`, `start`, `end`, `description`, `reservation_status_id`) VALUES
-(1, '2022-11-20 09:11:57', '2022-11-20 09:11:57', 1111, '100034', 1, '2022-11-20', '2022-11-27', 'Untuk replacement class', 1);
+(1, '2022-11-20 09:11:57', '2022-11-22 08:24:56', 1111, '100034', 104, '2022-11-20', '2022-11-27', 'Untuk replacement class', 1000012);
 
 -- --------------------------------------------------------
 
@@ -237,7 +268,7 @@ CREATE TABLE `schedules` (
 --
 
 INSERT INTO `schedules` (`id`, `created_at`, `updated_at`, `room_id`, `leason_id`, `location_id`, `start`, `end`) VALUES
-(1, '2022-11-20 09:12:19', '2022-11-20 09:12:19', 1, 1, 1, '2022-11-20', '2022-11-22');
+(1, '2022-11-20 09:12:19', '2022-11-22 08:24:34', 401, 500001, 101, '2022-11-20', '2022-11-22');
 
 -- --------------------------------------------------------
 
@@ -328,6 +359,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `replacements`
+--
+ALTER TABLE `replacements`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `reservations`
 --
 ALTER TABLE `reservations`
@@ -384,7 +421,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `missing_item_statuses`
@@ -397,6 +434,12 @@ ALTER TABLE `missing_item_statuses`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `replacements`
+--
+ALTER TABLE `replacements`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reservations`
